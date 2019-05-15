@@ -4,6 +4,8 @@ public abstract class AbstractComponent
 	   extends fr.sorbonne_u.components.AbstractComponent
 	   implements ComponentI
 {
+	
+	private ComponentScenario componentBehavior;
 
 	public AbstractComponent(int nbThreads, int nbSchedulableThreads) {
 		super(nbThreads, nbSchedulableThreads);
@@ -36,6 +38,15 @@ public abstract class AbstractComponent
 				});
 	}
 	
+	@Override
+	public void setComponentBehavior(ComponentScenario behavior) throws Exception {
+		this.componentBehavior = behavior;
+	}
 	
-
+	@Override
+	public void execute() throws Exception {
+		super.execute();
+		this.componentBehavior.run();
+	}
+	
 }

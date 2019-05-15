@@ -112,28 +112,15 @@ public class Subscriber
 		super.shutdownNow();
 	}
 	
-	/**
-	 * @author Felix, Tahar, Christian, Jonathan
-	 * Execution
-	 * @throws Exception
-	 */
-	@Override
-	public void execute() throws Exception {
-
-		
-		super.execute();
-		Thread.sleep(1000L);
-		String[] lesTopics = {"tpoic1", "tpoic2", "tpoic3"};
-		String[] lesTopics2 = {"tpoic3", "tpoic4"};
-		subscribe(lesTopics,this.recepetionInboundPort.getPortURI());
-		subscribe(lesTopics2,this.recepetionInboundPort.getPortURI());
+	public ReceptionInboundPort getRecepetionInboundPort() {
+		return recepetionInboundPort;
 	}
 
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
 	 * @param String inboundPortUri
-	 * Abonne un abonné au sujet avec son port
+	 * Abonne un abonnÃ© au sujet avec son port
 	 * @throws Exception
 	 */
 	@Override
@@ -145,7 +132,7 @@ public class Subscriber
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String[] topics
 	 * @param String inboundPortUri
-	 * Abonne un abonné aux sujets avec son port
+	 * Abonne un abonnÃ© aux sujets avec son port
 	 * @throws Exception
 	 */
 	@Override
@@ -158,7 +145,7 @@ public class Subscriber
 	 * @param String topic
 	 * @param MessageFilterI filter
 	 * @param String inboundPortUri
-	 * Abonne un abonné au sujet avec un filtre et son port
+	 * Abonne un abonnÃ© au sujet avec un filtre et son port
 	 * @throws Exception
 	 */
 	@Override
@@ -171,7 +158,7 @@ public class Subscriber
 	 * @param String topic
 	 * @param MessageFilterI newFilter
 	 * @param String inboundPortUri
-	 * Modifier le filtre d'un abonné sur le sujet
+	 * Modifier le filtre d'un abonnÃ© sur le sujet
 	 * @throws Exception
 	 */
 	@Override
@@ -183,7 +170,7 @@ public class Subscriber
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
 	 * @param String inboundPortUri
-	 * Désabonne un abonné sur le sujet
+	 * DÃ©sabonne un abonnÃ© sur le sujet
 	 * @throws Exception
 	 */
 	@Override

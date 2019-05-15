@@ -1,11 +1,10 @@
 package publisher.implementation;
 
+import bcm.extend.AbstractComponent;
 import broker.interfaces.ManagementImplementationI;
 import broker.interfaces.PublicationsImplementationI;
-import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.cvm.AbstractCVM;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
-import message.Message;
 import message.MessageI;
 import publisher.ports.PublicationOutbountPort;
 import publisher.ports.ManagementOutboundPort;
@@ -47,7 +46,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
 	 * @param String topic
-	 * Publier le message a toutes les abonnés du sujet 
+	 * Publier le message a toutes les abonnÃ©s du sujet 
 	 * @throws Exception
 	 */
 	@Override
@@ -59,7 +58,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
 	 * @param String[] topics
-	 * publier le message a toutes les abonnés des sujets
+	 * publier le message a toutes les abonnÃ©s des sujets
 	 * @throws Exception
 	 */
 	@Override
@@ -72,7 +71,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] ms
 	 * @param String topic
-	 * publier les messages a toutes les abonnés du sujet
+	 * publier les messages a toutes les abonnÃ©s du sujet
 	 * @throws Exception
 	 */
 	@Override
@@ -85,7 +84,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] ms
 	 * @param String[] topics
-	 * publier les messages a toutes les abonnés des sujets
+	 * publier les messages a toutes les abonnÃ©s des sujets
 	 * @throws Exception
 	 */
 	@Override
@@ -96,7 +95,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
-	 * Créer le sujet dans la liste des sujets
+	 * CrÃ©er le sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	@Override
@@ -107,7 +106,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String[] topics
-	 * Créer une liste de sujet dans la liste des sujets
+	 * CrÃ©er une liste de sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	@Override
@@ -129,7 +128,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	/**
 	 * @author Felix,Tahar, Christian,Jonathan
 	 * @param String topic
-	 * @return vrai si le sujet est présent dans la liste sinon faux
+	 * @return vrai si le sujet est prÃ©sent dans la liste sinon faux
 	 * @throws Exception
 	 */
 	@Override
@@ -145,29 +144,8 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	@Override
 	public String[] getTopics() throws Exception {
 		return this.managementOutboundPort.getTopics();
-	}
-
-	/**
-	 * @author Felix, Tahar, Christian, Jonathan
-	 * Execution 
-	 * @throws Exception
-	 */
-	@Override
-	public void execute() throws Exception {
-		super.execute();
-		String[] lesTopics = {"tpoic1", "tpoic2", "tpoic3"};
-		String[] lesTopics2 = {"tpoic3", "tpoic4"};
-		createTopics(lesTopics);
-		createTopics(lesTopics2);
-		Thread.sleep(1000L);
-		publish(new Message("hello World"), lesTopics);
-	}
-	
-	/**
-	 * @author Felix, Tahar, Christian, Jonathan
-	 * Arret
-	 * @throws Exception
-	 */
+  }
+  
 	@Override
 	public void shutdown() throws ComponentShutdownException {
 		try {
