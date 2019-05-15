@@ -79,10 +79,11 @@ public class Broker extends AbstractComponent {
 		receptionOutboundPort.publishPort();
 		this.receptionPorts.put(receptionInboundPortUri, receptionOutboundPort);
 	}
+	
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
-	 * Ajouter le sujet dans la liste des sujets
+	 * Créer le sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	public void createTopic(String topic) throws Exception {
@@ -94,7 +95,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String[] topics
-	 * Ajouter une liste de sujet dans la liste des sujets
+	 * Créer une liste de sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	public void createTopics(String[] topics) throws Exception {
@@ -106,7 +107,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
-	 * Enlever un sujet dans la liste des sujets
+	 * Supprimer un sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	public void destroyTopic(String topic) throws Exception {
@@ -118,7 +119,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix,Tahar, Christian,Jonathan
 	 * @param String topic
-	 * @return true si le sujet est présent dans la liste sinon false
+	 * @return vrai si le sujet est présent dans la liste sinon faux
 	 * @throws Exception
 	 */
 	public boolean isTopic(String topic) throws Exception {
@@ -266,7 +267,7 @@ public class Broker extends AbstractComponent {
 	
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
-	 * 
+	 * Arret
 	 */
 	@Override
 	public void shutdown() throws ComponentShutdownException {
@@ -287,7 +288,7 @@ public class Broker extends AbstractComponent {
 	
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
-	 * 
+	 * Arret
 	 */
 	@Override
 	public void shutdownNow() throws ComponentShutdownException

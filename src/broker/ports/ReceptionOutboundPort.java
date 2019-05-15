@@ -37,7 +37,7 @@ public class ReceptionOutboundPort
 	
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
-	 * @param String[] m
+	 * @param MessageI[] m
 	 * Accepte les messages
 	 * @throws Exception
 	 */

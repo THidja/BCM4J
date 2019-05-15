@@ -21,22 +21,44 @@ public class TimeStamp implements Serializable {
 		this.timestamper = timestamp.toString();
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @return vrai si time different de 0 et timestamper n'est pas vide sinon faux
+	 */
 	public boolean isInitialised() {
 		return (this.time != 0)  && (this.timestamper != null);
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @return long time 
+	 */
 	public long getTime() {
 		return time;
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param long time 
+	 * Modifier le temps
+	 */
 	public void setTime(long time) {
 		this.time = time;
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @return String timestamper
+	 */
 	public String getTimestamper() {
 		return timestamper;
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String timestamper
+	 * Modifier le timestamper
+	 */
 	public void setTimestamper(String timestamper) {
 		this.timestamper = timestamper;
 	}

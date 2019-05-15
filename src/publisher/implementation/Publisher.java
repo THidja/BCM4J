@@ -42,55 +42,116 @@ implements PublicationsImplementationI, ManagementImplementationI {
 		this.tracer.setTitle("Pusblisher");
 		this.tracer.setRelativePosition(1, 1);
 	}
-
+	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI m
+	 * @param String topic
+	 * Publier le message a toutes les abonnés du sujet 
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI m, String topic) throws Exception {
 		this.publicationOutboundPort.publish(m,topic);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI m
+	 * @param String[] topics
+	 * publier le message a toutes les abonnés des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI m, String[] topics) throws Exception {
 		this.publicationOutboundPort.publish(m,topics);
 
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI[] ms
+	 * @param String topic
+	 * publier les messages a toutes les abonnés du sujet
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI[] m, String topic) throws Exception {
 		this.publicationOutboundPort.publish(m,topic);
 
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI[] ms
+	 * @param String[] topics
+	 * publier les messages a toutes les abonnés des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI[] m, String[] topics) throws Exception {
 		this.publicationOutboundPort.publish(m,topics);
 	}
-
+	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String topic
+	 * Créer le sujet dans la liste des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void createTopic(String topic) throws Exception {
 		this.managementOutboundPort.createTopic(topic);	
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String[] topics
+	 * Créer une liste de sujet dans la liste des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void createTopics(String[] topics) throws Exception {
 		this.managementOutboundPort.createTopics(topics);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String topic
+	 * Supprimer un sujet dans la liste des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void destroyTopic(String topic) throws Exception {
 		this.managementOutboundPort.destroyTopic(topic);
 	}
 
+	/**
+	 * @author Felix,Tahar, Christian,Jonathan
+	 * @param String topic
+	 * @return vrai si le sujet est présent dans la liste sinon faux
+	 * @throws Exception
+	 */
 	@Override
 	public boolean isTopic(String topic) throws Exception {
 		return this.managementOutboundPort.isTopic(topic);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @return la liste des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public String[] getTopics() throws Exception {
 		return this.managementOutboundPort.getTopics();
 	}
 
-	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * Execution 
+	 * @throws Exception
+	 */
 	@Override
 	public void execute() throws Exception {
 		super.execute();
@@ -102,7 +163,11 @@ implements PublicationsImplementationI, ManagementImplementationI {
 		publish(new Message("hello World"), lesTopics);
 	}
 	
-	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * Arret
+	 * @throws Exception
+	 */
 	@Override
 	public void shutdown() throws ComponentShutdownException {
 		try {

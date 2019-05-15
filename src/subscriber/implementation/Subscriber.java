@@ -51,18 +51,34 @@ public class Subscriber
 		this.tracer.setTitle("subscriber component");
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI m
+	 * Accepte le message
+	 * @throws Exception
+	 */
 	@Override
 	public void acceptMessage(MessageI m) throws Exception {
 		this.logMessage(String.format("%s received %s", this.componenetName, m.toString()));
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI[] ms
+	 * Accepte les messages
+	 * @throws Exception
+	 */
 	@Override
 	public void acceptMessages(MessageI[] ms) throws Exception {
 		for(MessageI m : ms) {
 			this.acceptMessage(m);
 		}
 	}
-	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * Arret
+	 * @throws Component!shutdownException
+	 */
 	@Override
 	public void shutdown() throws ComponentShutdownException {
 		
@@ -77,6 +93,11 @@ public class Subscriber
 		super.shutdown();
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * Arret
+	 * @throws Component!shutdownException
+	 */
 	@Override
 	public void shutdownNow() throws ComponentShutdownException {
 		
@@ -91,6 +112,11 @@ public class Subscriber
 		super.shutdownNow();
 	}
 	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * Execution
+	 * @throws Exception
+	 */
 	@Override
 	public void execute() throws Exception {
 
@@ -103,26 +129,63 @@ public class Subscriber
 		subscribe(lesTopics2,this.recepetionInboundPort.getPortURI());
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String topic
+	 * @param String inboundPortUri
+	 * Abonne un abonné au sujet avec son port
+	 * @throws Exception
+	 */
 	@Override
 	public void subscribe(String topic, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.subscribe(topic,inboundPortUri);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String[] topics
+	 * @param String inboundPortUri
+	 * Abonne un abonné aux sujets avec son port
+	 * @throws Exception
+	 */
 	@Override
 	public void subscribe(String[] topics, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.subscribe(topics,inboundPortUri);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String topic
+	 * @param MessageFilterI filter
+	 * @param String inboundPortUri
+	 * Abonne un abonné au sujet avec un filtre et son port
+	 * @throws Exception
+	 */
 	@Override
 	public void subscribe(String topic, MessageFilterI filter, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.subscribe(topic, inboundPortUri);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String topic
+	 * @param MessageFilterI newFilter
+	 * @param String inboundPortUri
+	 * Modifier le filtre d'un abonné sur le sujet
+	 * @throws Exception
+	 */
 	@Override
 	public void modifyFilter(String topic, MessageFilterI newFilter, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.modifyFilter(topic, newFilter, inboundPortUri);
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param String topic
+	 * @param String inboundPortUri
+	 * Désabonne un abonné sur le sujet
+	 * @throws Exception
+	 */
 	@Override
 	public void unsubscribe(String topic, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.unsubscribe(topic, inboundPortUri);
