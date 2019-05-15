@@ -136,6 +136,7 @@ public class Broker extends AbstractComponent {
 													.filter(s -> s.filterMessage(m))
 													.collect(Collectors.toList());
 		
+		
 		for(Subscriber s : subscribers) {
 			ReceptionOutboundPort outPort = this.receptionPorts.get(s.getSubscriber());
 			outPort.acceptMessage(m);

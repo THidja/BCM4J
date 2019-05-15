@@ -1,11 +1,10 @@
 package publisher.implementation;
 
+import bcm.extend.AbstractComponent;
 import broker.interfaces.ManagementImplementationI;
 import broker.interfaces.PublicationsImplementationI;
-import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.cvm.AbstractCVM;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
-import message.Message;
 import message.MessageI;
 import publisher.ports.PublicationOutbountPort;
 import publisher.ports.ManagementOutboundPort;
@@ -88,20 +87,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	@Override
 	public String[] getTopics() throws Exception {
 		return this.managementOutboundPort.getTopics();
-	}
-
-	
-	@Override
-	public void execute() throws Exception {
-		super.execute();
-		String[] lesTopics = {"tpoic1", "tpoic2", "tpoic3"};
-		String[] lesTopics2 = {"tpoic3", "tpoic4"};
-		createTopics(lesTopics);
-		createTopics(lesTopics2);
-		Thread.sleep(1000L);
-		publish(new Message("hello World"), lesTopics);
-	}
-	
+	}	
 	
 	@Override
 	public void shutdown() throws ComponentShutdownException {

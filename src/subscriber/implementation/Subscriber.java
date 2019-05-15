@@ -91,16 +91,8 @@ public class Subscriber
 		super.shutdownNow();
 	}
 	
-	@Override
-	public void execute() throws Exception {
-
-		
-		super.execute();
-		Thread.sleep(1000L);
-		String[] lesTopics = {"tpoic1", "tpoic2", "tpoic3"};
-		String[] lesTopics2 = {"tpoic3", "tpoic4"};
-		subscribe(lesTopics,this.recepetionInboundPort.getPortURI());
-		subscribe(lesTopics2,this.recepetionInboundPort.getPortURI());
+	public ReceptionInboundPort getRecepetionInboundPort() {
+		return recepetionInboundPort;
 	}
 
 	@Override
