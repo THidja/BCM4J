@@ -23,12 +23,24 @@ public class ReceptionOutboundPort
 		super(uri, ReceptionI.class, owner);
 		assert	owner instanceof ReceptionI;
 	}
-
+	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI m
+	 * Accepte le message
+	 * @throws Exception
+	 */
 	@Override
 	public void acceptMessage(MessageI m) throws Exception {
 		((ReceptionI) this.connector).acceptMessage(m);
 	}
-
+	
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI[] m
+	 * Accepte les messages
+	 * @throws Exception
+	 */
 	@Override
 	public void acceptMessages(MessageI[] m) throws Exception {
 		((ReceptionI) this.connector).acceptMessages(m);

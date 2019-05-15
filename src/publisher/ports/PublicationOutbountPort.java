@@ -23,24 +23,52 @@ public class PublicationOutbountPort
 		assert	owner instanceof PublicationI;
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI m
+	 * @param String topic
+	 * Publier le message a toutes les abonnés du sujet 
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI m, String topic) throws Exception {
 		((PublicationI) this.connector).publish(m, topic); 
 
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI m
+	 * @param String[] topics
+	 * publier le message a toutes les abonnés des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI m, String[] topics) throws Exception {
 		((PublicationI) this.connector).publish(m, topics);
 
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI[] ms
+	 * @param String topic
+	 * publier les messages a toutes les abonnés du sujet
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI[] ms, String topic) throws Exception {
 		((PublicationI) this.connector).publish(ms, topic);
 
 	}
 
+	/**
+	 * @author Felix, Tahar, Christian, Jonathan
+	 * @param MessageI[] ms
+	 * @param String[] topics
+	 * publier les messages a toutes les abonnés des sujets
+	 * @throws Exception
+	 */
 	@Override
 	public void publish(MessageI[] ms, String[] topics) throws Exception {
 		((PublicationI) this.connector).publish(ms, topics);
