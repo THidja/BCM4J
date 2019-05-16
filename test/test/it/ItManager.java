@@ -24,7 +24,7 @@ public class ItManager {
 		this.scenario = scenario;
 	}
 	
-	public void run(boolean trace) throws Exception {
+	public void run() throws Exception {
 		
 		AbstractCVM cvm = new AbstractCVM() {
 			
@@ -41,9 +41,7 @@ public class ItManager {
 					String publisherManOut = "PUBLISHER_MANAGEMENT_OUT_PORT_URI_" + (i+1);
 					
 					publishers[i] = new Publisher(publisherPubOut, publisherManOut);
-					if(trace) {
-						publishers[i].toggleTracing();
-					}
+					publishers[i].toggleTracing();
 					publishers[i].doPortConnection(publisherManOut,
 												   brokerManIn,
 												   ManagementConnector.class.getCanonicalName());
@@ -58,9 +56,7 @@ public class ItManager {
 					String brokerRecOut = "BROKER_RECEPTION_OUT_PORT_URI_" + (i+1);
 					
 					subscribers[i] = new Subscriber(subscriberManOut, subscriberRecIn);
-					if(trace) {
-						subscribers[i].toggleTracing();
-					}
+					subscribers[i].toggleTracing();
 					broker.addReceptionOutboundPort(brokerRecOut, subscriberRecIn);
 					subscribers[i].doPortConnection(subscriberManOut,
 													brokerManIn,
@@ -70,9 +66,7 @@ public class ItManager {
 											ReceptionsConnector.class.getCanonicalName());
 				}
 				
-				if(trace) {
 					broker.toggleTracing();
-				}
 				
 				scenario.distribute();
 				

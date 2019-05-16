@@ -20,11 +20,15 @@ public class Subscriber
 	   implements ReceptionImplementationI, SubscriptionImplementationI
 {
 
-	private static int i  = 0;
-	private String componenetName;
+	protected static int i  = 0;
+	protected String componenetName;
 
-	private ManagementOutboundPort managementOutboundPort;
-	private ReceptionInboundPort recepetionInboundPort;
+	protected ManagementOutboundPort managementOutboundPort;
+	protected ReceptionInboundPort recepetionInboundPort;
+	
+	protected Subscriber(int nbThreads, int nbSchedulableThreads) {
+		super(nbThreads, nbSchedulableThreads);
+	}
 
 	public Subscriber(String managementOutboundPortUri, String recepetionInboundPortUri) throws Exception {
 		this(1, 0, managementOutboundPortUri, recepetionInboundPortUri);
@@ -49,6 +53,7 @@ public class Subscriber
 		this.recepetionInboundPort.publishPort();
 
 		this.tracer.setTitle("subscriber component");
+		this.tracer.setRelativePosition(0, 1);
 	}
 
 	/**
@@ -126,6 +131,7 @@ public class Subscriber
 	@Override
 	public void subscribe(String topic, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.subscribe(topic,inboundPortUri);
+		this.logMessage("Abonnement de '"+inboundPortUri+"' au topic '"+topic+"' ");
 	}
 
 	/**
@@ -138,6 +144,8 @@ public class Subscriber
 	@Override
 	public void subscribe(String[] topics, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.subscribe(topics,inboundPortUri);
+		for(String t: topics)
+			this.logMessage("Abonnement de '"+inboundPortUri+"' au topic '"+t+"' ");
 	}
 
 	/**
@@ -151,6 +159,7 @@ public class Subscriber
 	@Override
 	public void subscribe(String topic, MessageFilterI filter, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.subscribe(topic, inboundPortUri);
+		this.logMessage("Abonnement de '"+inboundPortUri+"' au topic '"+topic+"' ");
 	}
 
 	/**
@@ -164,6 +173,7 @@ public class Subscriber
 	@Override
 	public void modifyFilter(String topic, MessageFilterI newFilter, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.modifyFilter(topic, newFilter, inboundPortUri);
+		this.logMessage("Modification/ajout de filtre par '"+inboundPortUri+"' au topic '"+topic+"' ");
 	}
 
 	/**
@@ -176,6 +186,7 @@ public class Subscriber
 	@Override
 	public void unsubscribe(String topic, String inboundPortUri) throws Exception {
 		this.managementOutboundPort.unsubscribe(topic, inboundPortUri);
+		this.logMessage("Désabonnement de '"+inboundPortUri+"' du topic '"+topic+"' ");
 	}
 
 }

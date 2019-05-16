@@ -2,7 +2,6 @@ package broker.ports;
 
 import broker.implementation.Broker;
 import broker.interfaces.PublicationI;
-import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
 import message.MessageI;
@@ -45,21 +44,11 @@ public class PublicationInboundPort
 	 */
 	@Override
 	public void publish(MessageI m, String topic) throws Exception {
-		
-//		this.owner()
-//			.handleRequestAsync(
-//				() -> this.owner().publish(m, topic)
-//			);
-		this.getOwner().handleRequestAsync(
-				executorIndex,			// identifies the pool of threads to be used
-				new AbstractComponent.AbstractService<Void>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public Void call() throws Exception {
-						((Broker) this.getOwner()).publish(m,topic) ;
-						return null;
-					}
-				}) ;
+		this.owner()
+			.handleRequestAsync(
+				executorIndex,
+				() -> this.owner().publish(m, topic)
+			);
 	}
 	
 	/**
@@ -72,20 +61,11 @@ public class PublicationInboundPort
 	@Override
 	public void publish(MessageI m, String[] topics) throws Exception {
 		
-//		this.owner()
-//			.handleRequestAsync(
-//				() -> this.owner().publish(m, topics)
-//			);
-		this.getOwner().handleRequestAsync(
-				executorIndex,			// identifies the pool of threads to be used
-				new AbstractComponent.AbstractService<Void>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public Void call() throws Exception {
-						((Broker) this.getOwner()).publish(m,topics) ;
-						return null;
-					}
-				}) ;
+		this.owner()
+			.handleRequestAsync(
+				executorIndex,
+				() -> this.owner().publish(m, topics)
+			);
 	}
 	
 	/**
@@ -98,20 +78,11 @@ public class PublicationInboundPort
 	@Override
 	public void publish(MessageI[] ms, String topic) throws Exception {
 		
-//		this.owner()
-//			.handleRequestAsync(
-//				() -> this.owner().publish(ms, topic)
-//			);
-		this.getOwner().handleRequestAsync(
-				executorIndex,			// identifies the pool of threads to be used
-				new AbstractComponent.AbstractService<Void>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public Void call() throws Exception {
-						((Broker) this.getOwner()).publish(ms,topic) ;
-						return null;
-					}
-				}) ;
+		this.owner()
+			.handleRequestAsync(
+				executorIndex,
+				() -> this.owner().publish(ms, topic)
+			);
 	}
 	
 	/**
@@ -124,20 +95,11 @@ public class PublicationInboundPort
 	@Override
 	public void publish(MessageI[] ms, String[] topics) throws Exception {
 		
-//		this.owner()
-//			.handleRequestAsync(
-//				() -> this.owner().publish(ms, topics)
-//			);
-		this.getOwner().handleRequestAsync(
-				executorIndex,			// identifies the pool of threads to be used
-				new AbstractComponent.AbstractService<Void>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public Void call() throws Exception {
-						((Broker) this.getOwner()).publish(ms,topics) ;
-						return null;
-					}
-				}) ;
+		this.owner()
+			.handleRequestAsync(
+				executorIndex,
+				() -> this.owner().publish(ms, topics)
+			);
 	}
 
 }

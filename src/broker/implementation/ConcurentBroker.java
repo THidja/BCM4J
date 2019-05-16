@@ -3,13 +3,9 @@ package broker.implementation;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
-import bcm.extend.AbstractComponent;
 import broker.interfaces.ManagementI;
 import broker.interfaces.PublicationI;
 import broker.ports.ManagementInboundPort;
@@ -18,7 +14,6 @@ import broker.ports.ReceptionOutboundPort;
 import connectors.ReceptionsConnector;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
-import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import message.MessageFilterI;
 import message.MessageI;
 import subscriber.interfaces.ReceptionI;
@@ -28,14 +23,7 @@ import static bcm.extend.Utils.getOnSet;;
 
 @RequiredInterfaces(required = {ReceptionI.class})
 @OfferedInterfaces(offered = {ManagementI.class, PublicationI.class})
-public class ConcurentBroker extends AbstractComponent {
-	
-	private Map<String, Set<Subscriber>> subscriptions;
-	private Set<String> topics;
-	private Map<String, ReceptionOutboundPort> receptionPorts = new HashMap<>();
-	
-	private ManagementInboundPort managementInboundPort;
-	private PublicationInboundPort publicationInboundPort;
+public class ConcurentBroker extends Broker {
 	
 	public static final String	PUBLI_ACCESS_HANDLER_URI = "pah" ;
 	public static final String	MANAG_ACCESS_HANDLER_URI = "mah" ;
@@ -57,7 +45,7 @@ public class ConcurentBroker extends AbstractComponent {
 									nbReadingThreads,
 									false);
 		
-		this.managementInboundPort = new ManagementInboundPort(
+		managementInboundPort = new ManagementInboundPort(
 				this.getExecutorServiceIndex(MANAG_ACCESS_HANDLER_URI),
 				this);
 		this.publicationInboundPort = new PublicationInboundPort(
@@ -72,12 +60,13 @@ public class ConcurentBroker extends AbstractComponent {
 		
 		this.subscriptions = new HashMap<>();
 		this.topics = new HashSet<>();
+		this.receptionPorts = new HashMap<>();
 		
-		this.tracer.setTitle("broker component");
+		this.tracer.setTitle("Concurent Broker");
 		this.tracer.setRelativePosition(0, 0) ;
 	}
 
-	
+	@Override
 	public void createTopic(String topic) throws Exception {
 		this.hashMapLock.writeLock().lock() ;
 		topics.add(topic);
@@ -85,12 +74,7 @@ public class ConcurentBroker extends AbstractComponent {
 		this.hashMapLock.writeLock().unlock() ;
 	}
 	
-	public void createTopics(String[] topics) throws Exception {
-		for(String topic : topics) {
-			createTopic(topic);
-		}
-	}
-	
+	@Override
 	public void destroyTopic(String topic) throws Exception {
 		this.hashMapLock.writeLock().lock() ;
 		topics.remove(topic);
@@ -98,6 +82,7 @@ public class ConcurentBroker extends AbstractComponent {
 		this.hashMapLock.writeLock().unlock() ;
 	}
 	
+	@Override
 	public boolean isTopic(String topic) throws Exception {
 		boolean res = false;
 		this.hashMapLock.readLock().lock() ;
@@ -109,6 +94,7 @@ public class ConcurentBroker extends AbstractComponent {
 		return res;
 	}
 	
+	@Override
 	public String[] getTopics() throws Exception {
 		String[] res = null;
 		this.hashMapLock.readLock().lock() ;
@@ -120,16 +106,8 @@ public class ConcurentBroker extends AbstractComponent {
 		return res;
 	}
 	
-	public void subscribe(String topic, String inboundPortUri) throws Exception {
-		this.subscribe(topic, null, inboundPortUri);
-	}
 	
-	public void subscribe(String[] topics, String inboundPortUri) throws Exception {
-		for(String topic : topics) {
-			subscribe(topic, inboundPortUri);
-		}
-	}
-	
+	@Override
 	public void subscribe(String topic, MessageFilterI filter, String inboundPortUri) throws Exception {
 		this.hashMapLock.writeLock().lock() ;
 		if(isTopic(topic)) {
@@ -157,6 +135,7 @@ public class ConcurentBroker extends AbstractComponent {
 		this.hashMapLock.writeLock().unlock() ;
 	}
 	
+	@Override
 	public void modifyFilter(String topic, MessageFilterI newFilter, String inboundPortUri) throws Exception {
 		this.hashMapLock.writeLock().lock() ;
 		if(isTopic(topic) && subscriptions.containsKey(topic)) {
@@ -167,6 +146,7 @@ public class ConcurentBroker extends AbstractComponent {
 		this.hashMapLock.writeLock().unlock() ;
 	}
 	
+	@Override
 	public void unsubscribe(String topic, String inboundPortUri) throws Exception {
 		this.hashMapLock.writeLock().lock() ;
 		if(isTopic(topic) && subscriptions.containsKey(topic)) {
@@ -177,6 +157,7 @@ public class ConcurentBroker extends AbstractComponent {
 		this.hashMapLock.writeLock().unlock() ;
 	}
 	
+	@Override
 	public void publish(MessageI m, String topic) throws Exception {
 		this.logMessage("publish le message '"+m.toString()+" sur le topic '"+topic
 				+"'");
@@ -191,101 +172,5 @@ public class ConcurentBroker extends AbstractComponent {
 
         }
 
-  }
-	
-	
-	public void publish(MessageI m, String[] topics) throws Exception {
-		
-		for(String topic : topics) {
-			publish(m, topic);
-		}
-	}
-	
-	public void publish(MessageI[] ms, String topic)  throws Exception {
-		
-		for(MessageI m : ms) {
-			publish(m, topic);
-		}
-	}
-	
-	public void publish(MessageI[] ms, String[] topics)  throws Exception {
-		
-		for(MessageI m : ms) {
-			for(String topic : topics) {
-				publish(m, topic);
-			}
-		}
-	}
-		
-	@Override
-	public void shutdown() throws ComponentShutdownException {
-		
-		try {
-			this.managementInboundPort.unpublishPort();
-			this.publicationInboundPort.unpublishPort();
-		}
-		catch(Exception e) {
-			throw new ComponentShutdownException(e);
-		}
-		
-		super.shutdown();
-	}
-	
-	@Override
-	public void shutdownNow() throws ComponentShutdownException
-	{
-		try {
-			this.managementInboundPort.unpublishPort();
-			this.publicationInboundPort.unpublishPort();
-		}
-		catch(Exception e) {
-			throw new ComponentShutdownException(e);
-		}
-		
-		super.shutdownNow();
-	}
-
-}
-
-class Subscriber {
-	
-	private String subscriber;
-	private Optional<MessageFilterI> filter;
-	
-	public Subscriber(String subscriber) {
-		this.subscriber = subscriber;
-		this.filter = Optional.empty();
-	}
-	
-	public Subscriber(String subscriber, MessageFilterI filter) {
-		this.subscriber = subscriber;
-		this.filter = Optional.ofNullable(filter);
-	}
-	
-	public void setFilter(MessageFilterI filter) {
-		this.filter = Optional.ofNullable(filter);
-	}
-	
-	public String getSubscriber() {
-		return subscriber;
-	}
-	
-	public boolean filterMessage(MessageI m) {
-		return !this.getFilter().isPresent() || this.getFilter().get().filter(m);
-	}
-	
-	public Optional<MessageFilterI> getFilter() {
-		return filter;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if(o == null) return false;
-		if(!(o instanceof Subscriber)) return false;
-		Subscriber sub = (Subscriber) o;
-		if(!(sub.subscriber.equals(this.subscriber))) {
-			return false;
-		}
-		return true;
 	}
 }
