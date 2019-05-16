@@ -4,11 +4,11 @@ import fr.sorbonne_u.components.connectors.AbstractConnector;
 import message.MessageI;
 import subscriber.interfaces.ReceptionI;
 
-public class ReceptionsConnector 
-	   extends AbstractConnector 
-	   implements ReceptionI 
+public class ReceptionsConnector
+	   extends AbstractConnector
+	   implements ReceptionI
 {
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
@@ -19,7 +19,7 @@ public class ReceptionsConnector
 	public void acceptMessage(MessageI m) throws Exception {
 		((ReceptionI) this.offering).acceptMessage(m);
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String[] m

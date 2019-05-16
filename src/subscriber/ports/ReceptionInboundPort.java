@@ -6,20 +6,27 @@ import message.MessageI;
 import subscriber.implementation.Subscriber;
 import subscriber.interfaces.ReceptionI;
 
-public class ReceptionInboundPort 
+public class ReceptionInboundPort
 	   extends AbstractInboundPort
 	   implements ReceptionI
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	public ReceptionInboundPort(String uri, ComponentI owner) throws Exception {
 		super(uri, ReceptionI.class, owner);
 		assert owner instanceof Subscriber;
 	}
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
-	 * @return l'abonné
+	 * @return l'abonnï¿½
 	 */
+
+	public ReceptionInboundPort(ComponentI owner) throws Exception {
+		super(ReceptionI.class, owner);
+		assert owner instanceof Subscriber;
+	}
+	
 	private Subscriber owner() {
 		return (Subscriber) this.owner;
 	}
@@ -37,7 +44,7 @@ public class ReceptionInboundPort
 					() -> this.owner().acceptMessage(m)
 			 );
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] ms

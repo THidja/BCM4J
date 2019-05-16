@@ -10,17 +10,17 @@ import publisher.ports.PublicationOutbountPort;
 import publisher.ports.ManagementOutboundPort;
 
 
-public class Publisher 
-extends AbstractComponent 
+public class Publisher
+extends AbstractComponent
 implements PublicationsImplementationI, ManagementImplementationI {
-	
+
 	protected PublicationOutbountPort publicationOutboundPort;
 	protected ManagementOutboundPort managementOutboundPort;
 
 	public Publisher(String publicationOutboundPortUri, String managementOutboundPortUri) throws Exception {
-		
+
 		super(1, 0);
-		
+
 		assert publicationOutboundPortUri != null;
 		assert managementOutboundPortUri != null;
 		// create the port that exposes the required interface
@@ -41,12 +41,12 @@ implements PublicationsImplementationI, ManagementImplementationI {
 		this.tracer.setTitle("Pusblisher");
 		this.tracer.setRelativePosition(1, 1);
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
 	 * @param String topic
-	 * Publier le message a toutes les abonnés du sujet 
+	 * Publier le message a toutes les abonnés du sujet
 	 * @throws Exception
 	 */
 	@Override
@@ -91,7 +91,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	public void publish(MessageI[] m, String[] topics) throws Exception {
 		this.publicationOutboundPort.publish(m,topics);
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
@@ -100,7 +100,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 */
 	@Override
 	public void createTopic(String topic) throws Exception {
-		this.managementOutboundPort.createTopic(topic);	
+		this.managementOutboundPort.createTopic(topic);
 	}
 
 	/**
@@ -145,7 +145,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	public String[] getTopics() throws Exception {
 		return this.managementOutboundPort.getTopics();
   }
-  
+
 	@Override
 	public void shutdown() throws ComponentShutdownException {
 		try {
@@ -156,6 +156,6 @@ implements PublicationsImplementationI, ManagementImplementationI {
 		}
 		super.shutdown();
 	}
-	
-	
+
+
 }

@@ -15,42 +15,42 @@ import broker.interfaces.SubscriptionImplementationI;
 
 @RequiredInterfaces(required = {ManagementI.class})
 @OfferedInterfaces(offered = {ReceptionI.class})
-public class Subscriber 
+public class Subscriber
 	   extends AbstractComponent
 	   implements ReceptionImplementationI, SubscriptionImplementationI
-{ 
+{
 
 	private static int i  = 0;
 	private String componenetName;
-	
+
 	private ManagementOutboundPort managementOutboundPort;
 	private ReceptionInboundPort recepetionInboundPort;
-	
+
 	public Subscriber(String managementOutboundPortUri, String recepetionInboundPortUri) throws Exception {
 		this(1, 0, managementOutboundPortUri, recepetionInboundPortUri);
 	}
-					
+
 	public Subscriber(int nbThreads, int nbSchedulableThreads, String managementOutboundPortUri,
 							String recepetionInboundPortUri) throws Exception {
-		
+
 		super(nbThreads, nbSchedulableThreads);
 		assert managementOutboundPortUri != null;
 		assert recepetionInboundPortUri != null;
-		
+
 		this.componenetName = String.format("subscriber %d", ++i);
-		
+
 		this.managementOutboundPort = new ManagementOutboundPort(managementOutboundPortUri, this);
 		this.recepetionInboundPort = new ReceptionInboundPort(recepetionInboundPortUri, this);
-		
+
 		this.addPort(managementOutboundPort);
 		this.addPort(recepetionInboundPort);
-		
+
 		this.managementOutboundPort.publishPort();
 		this.recepetionInboundPort.publishPort();
-		
+
 		this.tracer.setTitle("subscriber component");
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
@@ -61,7 +61,7 @@ public class Subscriber
 	public void acceptMessage(MessageI m) throws Exception {
 		this.logMessage(String.format("%s received %s", this.componenetName, m.toString()));
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] ms
@@ -81,18 +81,18 @@ public class Subscriber
 	 */
 	@Override
 	public void shutdown() throws ComponentShutdownException {
-		
+
 		try {
 			this.managementOutboundPort.unpublishPort();
 			this.recepetionInboundPort.unpublishPort();
-		} 
+		}
 		catch (Exception e) {
 			throw new ComponentShutdownException(e);
 		}
-		
+
 		super.shutdown();
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * Arret
@@ -100,7 +100,7 @@ public class Subscriber
 	 */
 	@Override
 	public void shutdownNow() throws ComponentShutdownException {
-		
+
 		try {
 			this.managementOutboundPort.unpublishPort();
 			this.recepetionInboundPort.unpublishPort();
@@ -108,10 +108,10 @@ public class Subscriber
 		catch(Exception e) {
 			throw new ComponentShutdownException(e);
 		}
-		
+
 		super.shutdownNow();
 	}
-	
+
 	public ReceptionInboundPort getRecepetionInboundPort() {
 		return recepetionInboundPort;
 	}

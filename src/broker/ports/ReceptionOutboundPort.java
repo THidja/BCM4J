@@ -7,9 +7,9 @@ import message.MessageI;
 import subscriber.interfaces.ReceptionI;
 
 
-public class ReceptionOutboundPort 
-	   extends AbstractOutboundPort 
-       implements ReceptionI 
+public class ReceptionOutboundPort
+	   extends AbstractOutboundPort
+       implements ReceptionI
 {
 
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class ReceptionOutboundPort
 		super(uri, ReceptionI.class, owner);
 		assert	owner instanceof ReceptionI;
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
@@ -34,7 +34,7 @@ public class ReceptionOutboundPort
 	public void acceptMessage(MessageI m) throws Exception {
 		((ReceptionI) this.connector).acceptMessage(m);
 	}
-	
+
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] m

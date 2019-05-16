@@ -1,19 +1,19 @@
 package CVM;
 
 import bcm.extend.Environment;
-import broker.implementation.Broker;
+import broker.implementation.ConcurentBroker;
 import connectors.ManagementConnector;
 import connectors.PublicationsConnector;
 import connectors.ReceptionsConnector;
 import fr.sorbonne_u.components.cvm.AbstractCVM;
-import publisher.implementation.Publisher;
-import subscriber.implementation.Subscriber;
+import publisher.implementation.ConcurentPublisher;
+import subscriber.implementation.ConcurentSubscriber;
 
-public class CVM extends AbstractCVM {
+public class ConcurentCVM extends AbstractCVM {
 
 	protected static final String	CONCURRENT_BROKER_URI = "cbu" ;
 	
-	public CVM() throws Exception {
+	public ConcurentCVM() throws Exception {
 		super();
 	}
 
@@ -22,9 +22,9 @@ public class CVM extends AbstractCVM {
 		
 		new Environment(true);
 		
-		Broker b = new Broker(CONCURRENT_BROKER_URI, 5);
-		Publisher p = new Publisher(CONCURRENT_BROKER_URI) ;
-		Subscriber s = new Subscriber(CONCURRENT_BROKER_URI) ;
+		ConcurentBroker b = new ConcurentBroker(CONCURRENT_BROKER_URI, 5);
+		ConcurentPublisher p = new ConcurentPublisher(CONCURRENT_BROKER_URI) ;
+		ConcurentSubscriber s = new ConcurentSubscriber(CONCURRENT_BROKER_URI) ;
 		
 		p.toggleTracing() ;
 		b.toggleTracing() ;
@@ -35,7 +35,7 @@ public class CVM extends AbstractCVM {
 
 	public static void main(String[] args) {
 		try {
-			CVM cvm = new CVM() ;
+			ConcurentCVM cvm = new ConcurentCVM() ;
 			cvm.startStandardLifeCycle(20000L) ;
 			Thread.sleep(500000L);
 			System.exit(0);
