@@ -2,6 +2,8 @@ package message;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.Serializable;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,5 +35,11 @@ public abstract class AbstractMessageTest {
 		properties.putProp("nombre", 10);
 		this.messageProvider = new Message(properties);
 		assertEquals(properties.getIntProp("nombre"),this.messageProvider.getProperties().getIntProp("nombre"));
+	}
+	
+	@Test
+	public void getPlayloadTest() {
+		Serializable content;
+		
 	}
 }
