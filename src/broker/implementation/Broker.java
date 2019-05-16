@@ -72,7 +72,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String receptionOutboundPortUri , String receptionInboundUri
-	 * Associer les ports de subscriber et broker du cot� de ReceptionI.
+	 * Associer les ports de subscriber et broker du cote de ReceptionI.
 	 * @throws Exception
 	 */
 	public void addReceptionOutboundPort(String receptionOutboundPortUri,
@@ -90,7 +90,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
-	 * Cr�er le sujet dans la liste des sujets
+	 * Creer le sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	public void createTopic(String topic) throws Exception {
@@ -102,7 +102,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String[] topics
-	 * Cr�er une liste de sujet dans la liste des sujets
+	 * Creer une liste de sujet dans la liste des sujets
 	 * @throws Exception
 	 */
 	public void createTopics(String[] topics) throws Exception {
@@ -126,7 +126,7 @@ public class Broker extends AbstractComponent {
 	/**
 	 * @author Felix,Tahar, Christian,Jonathan
 	 * @param String topic
-	 * @return vrai si le sujet est pr�sent dans la liste sinon faux
+	 * @return vrai si le sujet est present dans la liste sinon faux
 	 * @throws Exception
 	 */
 	public boolean isTopic(String topic) throws Exception {
@@ -160,7 +160,7 @@ public class Broker extends AbstractComponent {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
 	 * @param String inboundPortUri
-	 * Abonne un abonn� au sujet avec son port
+	 * Abonne un abonne au sujet avec son port
 	 * @throws Exception
 	 */
 	public void subscribe(String topic, String inboundPortUri) throws Exception {
@@ -171,7 +171,7 @@ public class Broker extends AbstractComponent {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String[] topics
 	 * @param String inboundPortUri
-	 * Abonne un abonn� aux sujets avec son port
+	 * Abonne un abonne aux sujets avec son port
 	 * @throws Exception
 	 */
 	public void subscribe(String[] topics, String inboundPortUri) throws Exception {
@@ -185,7 +185,7 @@ public class Broker extends AbstractComponent {
 	 * @param String topic
 	 * @param MessageFilterI filter
 	 * @param String inboundPortUri
-	 * Abonne un abonn� au sujet avec un filtre et son port
+	 * Abonne un abonne au sujet avec un filtre et son port
 	 * @throws Exception
 	 */
 	public void subscribe(String topic, MessageFilterI filter, String inboundPortUri) throws Exception {
@@ -215,7 +215,7 @@ public class Broker extends AbstractComponent {
 	 * @param String topic
 	 * @param MessageFilterI newFilter
 	 * @param String inboundPortUri
-	 * Modifier le filtre d'un abonn� sur le sujet
+	 * Modifier le filtre d'un abonne sur le sujet
 	 * @throws Exception
 	 */
 	public void modifyFilter(String topic, MessageFilterI newFilter, String inboundPortUri) throws Exception {
@@ -232,7 +232,7 @@ public class Broker extends AbstractComponent {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param String topic
 	 * @param String inboundPortUri
-	 * D�sabonne un abonn� sur le sujet
+	 * D�sabonne un abonne sur le sujet
 	 * @throws Exception
 	 */
 	public void unsubscribe(String topic, String inboundPortUri) throws Exception {
@@ -269,7 +269,7 @@ public class Broker extends AbstractComponent {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI m
 	 * @param String[] topics
-	 * publier le message a toutes les abonn�s des sujets
+	 * Publier le message a toutes les abonnes des sujets
 	 * @throws Exception
 	 */
 	public void publish(MessageI m, String[] topics) throws Exception {
@@ -283,7 +283,7 @@ public class Broker extends AbstractComponent {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] ms
 	 * @param String topic
-	 * publier les messages a toutes les abonn�s du sujet
+	 * Publier les messages a toutes les abonnes du sujet
 	 * @throws Exception
 	 */
 	public void publish(MessageI[] ms, String topic)  throws Exception {
@@ -297,7 +297,7 @@ public class Broker extends AbstractComponent {
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param MessageI[] ms
 	 * @param String[] topics
-	 * publier les messages a toutes les abonn�s des sujets
+	 * Publier les messages a toutes les abonnes des sujets
 	 * @throws Exception
 	 */
 	public void publish(MessageI[] ms, String[] topics)  throws Exception {
@@ -379,7 +379,7 @@ class Subscriber {
 
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
-	 * @return l'abonn�
+	 * @return l'abonne
 	 */
 	public String getSubscriber() {
 		return subscriber;
@@ -388,7 +388,7 @@ class Subscriber {
 	/**
 	 *
 	 * @param MessageI m
-	 * @return true si le filtre n'est pas pr�sent ou on applique le filtre sur le message
+	 * @return vrai si le filtre n'est pas present ou on applique le filtre sur le message sinon faux
 	 */
 	public boolean filterMessage(MessageI m) {
 		return !this.getFilter().isPresent() || this.getFilter().get().filter(m);
@@ -405,8 +405,8 @@ class Subscriber {
 	/**
 	 * @author Felix, Tahar, Christian, Jonathan
 	 * @param Object o
-	 * @return false si o est null ou du type subscriber sinon on cree un abonn�
-	 * @return false si l'abonn� n'existe pas sinon true
+	 * @return false si o est null ou du type subscriber sinon on cree un abonne
+	 * @return false si l'abonne n'existe pas sinon true
 	 */
 	@Override
 	public boolean equals(Object o) {

@@ -39,7 +39,9 @@ public abstract class AbstractMessageTest {
 	
 	@Test
 	public void getPlayloadTest() {
-		Serializable content;
-		
+		Serializable content = "Hello World";
+		this.messageProvider = new Message(content);
+		assertEquals(content.toString(), this.messageProvider.getPayload().toString());
 	}
+	
 }
