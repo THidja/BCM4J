@@ -16,37 +16,34 @@ public class ItTest1 {
 		itManager.setScenario(
 				
 				() -> {
-					
-					System.out.println("executing scenario 1");
-					
 					Publisher[] p = itManager.getPublishers();
 					Subscriber[] s = itManager.getSubscribers();
 					
+					String[] lesTopics = {"T1", "T2", "T3","T4"};
+					
 					p[0].setComponentBehavior(
 							() -> {
-								System.out.println(p[0]);
-								String[] lesTopics = {"topic1", "topic", "topic3"};
-								String[] lesTopics2 = {"topic3", "topic4"};
 								p[0].createTopics(lesTopics);
-								p[0].createTopics(lesTopics2);
-								Thread.sleep(1000L);
+								Thread.sleep(10000L);
 								p[0].publish(new Message("hello World"), lesTopics);
+								p[0].publish(new Message("Tomate"), "topic2");
+								p[0].publish(new Message("Patata"), "topic3");
+								Thread.sleep(10000L);
+								p[0].destroyTopic("topic1");
+								p[0].destroyTopic("topic4");
 							}
 					);
 					
 					s[0].setComponentBehavior(
 							() -> {
-								Thread.sleep(1000L);
-								String[] lesTopics = {"topic1", "topic2", "topic3"};
-								String[] lesTopics2 = {"topic3", "topic4"};
+								Thread.sleep(2000L);
 								s[0].subscribe(lesTopics, s[0].getRecepetionInboundPort().getPortURI());
-								s[0].subscribe(lesTopics2,s[0].getRecepetionInboundPort().getPortURI());
 							}
 					);
 				}
 		);
 		
-		itManager.run(true);
+		itManager.run();
 		
 		
 	}

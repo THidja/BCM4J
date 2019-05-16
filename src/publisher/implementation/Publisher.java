@@ -16,6 +16,10 @@ implements PublicationsImplementationI, ManagementImplementationI {
 
 	protected PublicationOutbountPort publicationOutboundPort;
 	protected ManagementOutboundPort managementOutboundPort;
+	
+	protected Publisher(int nbThreads,  int nbSchedulableThreads) {
+		super(nbThreads, nbSchedulableThreads);
+	}
 
 	public Publisher(String publicationOutboundPortUri, String managementOutboundPortUri) throws Exception {
 
@@ -39,7 +43,7 @@ implements PublicationsImplementationI, ManagementImplementationI {
 			this.executionLog.setDirectory(System.getProperty("user.home"));
 		}
 		this.tracer.setTitle("Pusblisher");
-		this.tracer.setRelativePosition(1, 1);
+		this.tracer.setRelativePosition(1, 0);
 	}
 
 	/**
@@ -51,6 +55,12 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 */
 	@Override
 	public void publish(MessageI m, String topic) throws Exception {
+		this.logMessage(
+				String.format("publication du message %s sur le topic %s",
+								m.toString(),
+								topic
+							 )
+		);
 		this.publicationOutboundPort.publish(m,topic);
 	}
 
@@ -63,7 +73,9 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 */
 	@Override
 	public void publish(MessageI m, String[] topics) throws Exception {
-		this.publicationOutboundPort.publish(m,topics);
+		for(String topic : topics) {
+			this.publish(m, topic);
+		}
 
 	}
 
@@ -75,8 +87,10 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 * @throws Exception
 	 */
 	@Override
-	public void publish(MessageI[] m, String topic) throws Exception {
-		this.publicationOutboundPort.publish(m,topic);
+	public void publish(MessageI[] ms, String topic) throws Exception {
+		for(MessageI m : ms) {
+			this.publish(m, topic);
+		}
 
 	}
 
@@ -88,8 +102,12 @@ implements PublicationsImplementationI, ManagementImplementationI {
 	 * @throws Exception
 	 */
 	@Override
-	public void publish(MessageI[] m, String[] topics) throws Exception {
-		this.publicationOutboundPort.publish(m,topics);
+	public void publish(MessageI[] ms, String[] topics) throws Exception {
+		for(MessageI m : ms) {
+			for(String topic : topics) {
+				this.publish(m, topic);
+			}
+		}
 	}
 
 	/**

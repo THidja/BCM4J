@@ -5,25 +5,36 @@ public abstract class AbstractComponent
 	   implements ComponentI
 {
 	
-	private ComponentScenario componentBehavior;
-	protected final int	executorIndex = -1 ;
+	private ComponentBehavior componentBehavior = () -> {};
 
 	public AbstractComponent(int nbThreads, int nbSchedulableThreads) {
 		super(nbThreads, nbSchedulableThreads);
-		// TODO Auto-generated constructor stub
 	}
 
 
 	public AbstractComponent(String reflectionInboundPortURI, int nbThreads, int nbSchedulableThreads) {
 		super(reflectionInboundPortURI, nbThreads, nbSchedulableThreads);
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	public <T> T handleRequestSync(int executorServiceIndex, SFunctionalComponentService<T> request) throws Exception {
+		
+		return this.handleRequestSync(
+					executorServiceIndex,
+					new AbstractComponent.AbstractService<T>() {
+						@Override
+						public T call() throws Exception {
+							return request.service();
+						}
+					}
+				);
+	}
+	
 
 	@Override
 	public <T> T handleRequestSync(SFunctionalComponentService<T> request) throws Exception {
 
-		return this.handleRequestSync(executorIndex,
+		return this.handleRequestSync(
 					new AbstractComponent.AbstractService<T>() {
 						@Override
 						public T call() throws Exception {
@@ -45,9 +56,23 @@ public abstract class AbstractComponent
 					}
 				});
 	}
+	
+	@Override
+	public <T> void handleRequestAsync(int executorServiceIndex, AFunctionalComponentService request) throws Exception {
+
+		this.handleRequestAsync(
+				executorServiceIndex,
+				new AbstractComponent.AbstractService<T>() {
+					@Override
+					public T call() throws Exception {
+						request.service();
+						return null;
+					}
+				});
+	}
 
 	@Override
-	public void setComponentBehavior(ComponentScenario behavior) throws Exception {
+	public void setComponentBehavior(ComponentBehavior behavior) throws Exception {
 		this.componentBehavior = behavior;
 	}
 
