@@ -1,9 +1,11 @@
-package message;
+package test.ut;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import message.Properties;
 
 public abstract class AbstractPropertiesTest {
 	

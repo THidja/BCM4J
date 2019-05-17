@@ -1,10 +1,6 @@
-package CVM;
+package cvm;
 
-import bcm.extend.Environment;
 import broker.implementation.ConcurentBroker;
-import connectors.ManagementConnector;
-import connectors.PublicationsConnector;
-import connectors.ReceptionsConnector;
 import fr.sorbonne_u.components.cvm.AbstractCVM;
 import publisher.implementation.ConcurentPublisher;
 import subscriber.implementation.ConcurentSubscriber;
@@ -19,8 +15,6 @@ public class ConcurentCVM extends AbstractCVM {
 
 	@Override
 	public void deploy() throws Exception {
-		
-		new Environment(true);
 		
 		ConcurentBroker b = new ConcurentBroker(CONCURRENT_BROKER_URI, 5);
 		ConcurentPublisher p = new ConcurentPublisher(CONCURRENT_BROKER_URI) ;

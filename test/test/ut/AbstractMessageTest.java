@@ -1,4 +1,4 @@
-package message;
+package test.ut;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,6 +6,12 @@ import java.io.Serializable;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import message.Message;
+import message.MessageFilterI;
+import message.MessageI;
+import message.Properties;
+import message.TimeStamp;
 
 public abstract class AbstractMessageTest {
 
